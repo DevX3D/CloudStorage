@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
     <title>Plans - FisHost</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
@@ -8,6 +8,127 @@
         @font-face {
             font-family: 'Soviet';
             src: url('../fonts/Soviet2.ttf') format('truetype');
+        }
+
+        .plans-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 300px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-features li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .plan-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+        }
+
+        .plan-button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: none;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .plan-button:disabled {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .storage-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .storage-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .storage-progress {
+            height: 100%;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            transition: width 0.3s ease;
+        }
+
+        .login-prompt {
+            text-align: center;
+            color: white;
+            margin: 2rem;
+        }
+
+        .login-prompt a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .login-prompt a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -18,8 +139,94 @@
             <a href="index.html">Home</a>
             <a class="active" href="plans.html">Plans</a>
             <a href="about.html">About</a>
+            <a href="login.html" id="authLink">Login</a>
         </div>
-    </div> 
-    <h1>Our Plans 🐟</h1>
+    </div>
+
+    <div id="content">
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/plans.js"></script>
+    <script>
+        function formatBytes(bytes) {
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            if (bytes === 0) return '0 Bytes';
+            const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+        }
+
+        function checkSession() {
+            const session = JSON.parse(localStorage.getItem('currentSession'));
+            if (!session || new Date(session.expiresAt) < new Date()) {
+                return null;
+            }
+            return session;
+        }
+
+        function updateUI() {
+            const content = document.getElementById('content');
+            const session = checkSession();
+            const authLink = document.getElementById('authLink');
+
+            if (session) {
+                const { user, plan } = getUserPlanDetails(session.userId);
+                authLink.textContent = 'Logout';
+                authLink.href = '#';
+                authLink.onclick = () => {
+                    logoutUser();
+                    window.location.reload();
+                };
+
+                const usagePercentage = (user.storageUsed / user.storageLimit) * 100;
+                
+                content.innerHTML = `
+                    <div class="plans-container">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <div class="plan-name">Free Plan</div>
+                                <div class="plan-price">$0</div>
+                            </div>
+                            <ul class="plan-features">
+                                <li>2.5GB Storage</li>
+                                <li>Basic Support</li>
+                                <li>Standard Speed</li>
+                            </ul>
+                            <div class="storage-info">
+                                Storage Used: ${formatBytes(user.storageUsed)} / ${formatBytes(user.storageLimit)}
+                                <div class="storage-bar">
+                                    <div class="storage-progress" style="width: ${usagePercentage}%"></div>
+                                </div>
+                            </div>
+                            <button class="plan-button" disabled>Current Plan</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="login-prompt">
+                        <h2>Please login to view your plan</h2>
+                        <p>Don't have an account? <a href="register.html">Register now</a> to get 2.5GB free storage!</p>
+                    </div>
+                    <div class="plans-container">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <div class="plan-name">Free Plan</div>
+                                <div class="plan-price">$0</div>
+                            </div>
+                            <ul class="plan-features">
+                                <li>2.5GB Storage</li>
+                                <li>Basic Support</li>
+                                <li>Standard Speed</li>
+                            </ul>
+                            <button class="plan-button" onclick="window.location.href='register.html'">Get Started</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        updateUI();
+    </script>
 </body>
 </html>
