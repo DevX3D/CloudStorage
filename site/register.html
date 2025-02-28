@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - FisHost</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Soviet';
+            src: url('../fonts/Soviet2.ttf') format('truetype');
+        }
+        
+        .auth-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .auth-button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: none;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .auth-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .auth-links {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .auth-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+        }
+        
+        .auth-links a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <div class="brand">FisHost</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="plans.html">Plans</a>
+            <a href="about.html">About</a>
+            <a href="login.html">Login</a>
+            <a class="active" href="register.html">Register</a>
+        </div>
+    </div>
+    
+    <div class="auth-form">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="auth-button">Register</button>
+        </form>
+        <div class="auth-links">
+            <a href="login.html">Already have an account? Login</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        initializeStorage();
+        
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            try {
+                registerUser(
+                    document.getElementById('username').value,
+                    document.getElementById('email').value,
+                    document.getElementById('password').value
+                );
+                alert('Registration successful! Please login.');
+                window.location.href = 'login.html';
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
+</body>
+</html>
