@@ -1,2 +1,2 @@
-# FisHost
+# FisHost 🐟
 Private cloud storage
