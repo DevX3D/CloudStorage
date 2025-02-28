@@ -42,16 +42,17 @@ h1 {
     border-radius: 6px;
     margin: 0 5px;
     font-style: italic;
+    background: linear-gradient(135deg, #333333, #444444);
 }
 
 .topnav a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #444444, #555555);
     color: white;
     transform: translateY(-2px);
 }
 
 .topnav a.active {
-    background-color: #2196F3;
+    background: linear-gradient(135deg, #1e88e5, #2196F3);
     color: white;
     box-shadow: 0 2px 15px rgba(33, 150, 243, 0.3);
 }
