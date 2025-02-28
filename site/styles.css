@@ -25,33 +25,59 @@ h1 {
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
-    padding: 14px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    align-items: center;
+    padding: 12px 3%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
 }
 
-.topnav a {
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 24px;
+.brand {
+    font-family: 'Soviet', 'Bungee', cursive;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #1e88e5, #2196F3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-decoration: none;
-    font-size: 17px;
-    transition: all 0.3s ease;
-    border-radius: 6px;
-    margin: 0 5px;
-    font-style: italic;
-    background: linear-gradient(135deg, #333333, #444444);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    grid-column: 1;
 }
 
-.topnav a:hover {
+.nav-links {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    grid-column: 2;
+}
+
+.nav-links a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    font-style: italic;
+    background: linear-gradient(135deg, #333333, #444444);
+    white-space: nowrap;
+}
+
+.nav-links a:hover {
     background: linear-gradient(135deg, #444444, #555555);
     color: white;
     transform: translateY(-2px);
 }
 
-.topnav a.active {
+.nav-links a.active {
     background: linear-gradient(135deg, #1e88e5, #2196F3);
     color: white;
     box-shadow: 0 2px 15px rgba(33, 150, 243, 0.3);
