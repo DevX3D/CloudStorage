@@ -45,7 +45,8 @@ body::after {
     height: 100%;
     background: 
         radial-gradient(circle at center,
-            rgba(255, 255, 255, 0.03) 0%,
+            rgba(52, 152, 219, 0.05) 0%,
+            rgba(46, 204, 113, 0.05) 45%,
             rgba(0, 0, 0, 0) 70%
         ),
         repeating-linear-gradient(45deg,
@@ -120,8 +121,8 @@ h1 {
     background: 
         radial-gradient(
             circle at 50% -50%,
-            rgba(255, 255, 255, 0.04) 0%,
-            rgba(255, 255, 255, 0.01) 50%,
+            rgba(52, 152, 219, 0.08) 0%,
+            rgba(46, 204, 113, 0.08) 50%,
             transparent 100%
         );
     pointer-events: none;
@@ -174,7 +175,10 @@ h1 {
 }
 
 .nav-links a:hover {
-    background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(46, 204, 113, 0.2));
+    background: linear-gradient(135deg, 
+        rgba(52, 152, 219, 0.2),
+        rgba(46, 204, 113, 0.2)
+    );
     color: white;
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.2);
