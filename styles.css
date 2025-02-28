@@ -1,26 +1,44 @@
+body {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    font-family: 'Bungee', cursive;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+}
+
+h1 {
+    color: white;
+    font-family: 'Bungee', cursive;
+    text-align: center;
+    font-size: 2.5em;
+}
+
 .topnav {
     background-color: #333;
     overflow: hidden;
-  }
-  .topnav a {
+    width: 100%;
+}
+
+.topnav a {
     float: left;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-  }
-  .topnav a:hover {
+}
+
+.topnav a:hover {
     background-color: #ddd;
     color: black;
-  }
-  .topnav a.active {
+}
+
+.topnav a.active {
     background-color: #04AA6D;
     color: white;
-  }
-h1 {
-    color: blue;
-    font-family: 'Bungee', cursive;
-    text-align: center;
-    font-size: 2.5em;
 }
