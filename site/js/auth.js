@@ -19,20 +19,22 @@ function registerUser(username, email, password) {
     }
     
     const userId = Date.now();
+    const storageLimit = 3 * 1024 * 1024 * 1024;
+
     const newUser = {
         id: userId,
         username,
         email,
         password,
         storageUsed: 0,
-        storageLimit: 2.5 * 1024 * 1024 * 1024,
+        storageLimit: storageLimit,
         createdAt: new Date().toISOString()
     };
 
     const userPlan = {
         userId: userId,
         planType: 'free',
-        storageLimit: 2.5 * 1024 * 1024 * 1024,
+        storageLimit: storageLimit,
         activatedAt: new Date().toISOString()
     };
 
