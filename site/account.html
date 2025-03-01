@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account - FisHost</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Soviet';
+            src: url('../fonts/Soviet2.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <div class="brand">FisHost</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="plans.html">Plans</a>
+            <a href="about.html">About</a>
+        </div>
+        <div class="auth-links" id="authLinks">
+        </div>
+    </div>
+    
+    <h1>My Account</h1>
+    <div class="account-container">
+        <div class="account-info">
+            <h2>Account Details</h2>
+            <p>Username: <span id="accountUsername"></span></p>
+            <p>Storage Used: <span id="storageUsed"></span> / 3GB</p>
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</body>
+<script src="js/auth.js"></script>
+<script>
+    const session = checkSession();
+    if (!session) {
+        window.location.href = 'login.html';
+    } else {
+        document.getElementById('accountUsername').textContent = session.username;
+    }
+
+    function logout() {
+        logoutUser();
+        window.location.href = 'index.html';
+    }
+</script>
+</html>
