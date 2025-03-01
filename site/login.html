@@ -71,6 +71,18 @@
             color: white;
         }
     </style>
+    <script>
+    function showMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 3000);
+    }
+    </script>
 </head>
 <body>
     <div class="topnav">
@@ -79,8 +91,10 @@
             <a href="index.html">Home</a>
             <a href="plans.html">Plans</a>
             <a href="about.html">About</a>
-            <a class="active" href="login.html">Login</a>
-            <a href="register.html">Register</a>
+        </div>
+        <div class="auth-links">
+            <a href="login.html">LOGIN</a>
+            <a href="register.html">REGISTER</a>
         </div>
     </div>
     
@@ -104,7 +118,6 @@
 
     <script src="js/auth.js"></script>
     <script>
-        // Load saved credentials on page load
         window.addEventListener('load', () => {
             const savedCred = loadSavedCredentials();
             if (savedCred) {
@@ -121,9 +134,12 @@
                     document.getElementById('username').value,
                     document.getElementById('password').value
                 );
-                window.location.href = 'plans.html';
+                showMessage('Login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'plans.html';
+                }, 1500);
             } catch (error) {
-                alert(error.message);
+                showMessage(error.message);
             }
         });
     </script>
