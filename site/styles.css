@@ -83,14 +83,15 @@ h1 {
     position: fixed;
     top: 0;
     left: 0;
-    display: grid;
-    grid-template-columns: minmax(200px, 1fr) minmax(auto, 800px) minmax(200px, 1fr);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 12px 5%;
+    padding: 15px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 1000;
+    height: 60px;
 }
 
 .topnav::before {
@@ -129,6 +130,7 @@ h1 {
 }
 
 .brand {
+    flex: 1;
     font-family: 'Soviet', 'Bungee', cursive;
     color: white;
     font-size: 32px;
@@ -142,55 +144,35 @@ h1 {
     display: flex;
     align-items: center;
     height: 45px;
-    grid-column: 1;
     padding-left: 5%;
     letter-spacing: 1px;
     text-shadow: 0 2px 10px rgba(46, 204, 113, 0.2);
 }
 
 .nav-links {
+    flex: 1;
     display: flex;
-    gap: 12px;
-    align-items: center;
     justify-content: center;
-    grid-column: 2;
-    width: 100%;
-    margin-left: auto;
+    align-items: center;
+    gap: 25px;
 }
 
 .nav-links a {
-    color: #f2f2f2;
-    text-align: center;
-    padding: 10px 20px;
+    color: white;
     text-decoration: none;
-    font-size: 15px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 8px;
-    font-style: normal;
-    font-weight: 500;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    backdrop-filter: blur(4px);
+    padding: 8px 16px;
+    font-family: 'Bungee', sans-serif;
+    position: relative;
 }
 
-.nav-links a:hover {
-    background: linear-gradient(135deg, 
-        rgba(52, 152, 219, 0.2),
-        rgba(46, 204, 113, 0.2)
-    );
-    color: white;
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.15);
-}
-
-.nav-links a.active {
-    background: linear-gradient(135deg, #3498db, #2ecc71);
-    color: white;
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-    border: none;
+.nav-links a:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #40E0D0;
 }
 
 .profile-icon {
@@ -271,8 +253,114 @@ h1 {
     margin: 0.5rem 0;
 }
 
-.auth-container {
+.auth-links {
+    flex: 1;
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left: auto;
+    gap: 20px;
+    padding-left: 100px;
+}
+
+.auth-links a {
+    font-family: 'Bungee', sans-serif;
+    text-decoration: none;
+    padding: 8px 20px;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.auth-links a:first-child {
+    background-color: transparent;
+    border: 2px solid #2C3333;
+    border-radius: 5px;
+}
+
+.auth-links a:first-child:hover {
+    border-color: #40E0D0;
+    background-color: #2C3333;
+}
+
+.auth-links a:last-child {
+    background-color: #2C3333;
+    border: 2px solid #40E0D0;
+    border-radius: 5px;
+}
+
+.auth-links a:last-child:hover {
+    background-color: #40E0D0;
+    color: black;
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2C3333;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    border: 2px solid #40E0D0;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.account-button {
+    background-color: #2C3333;
+    border: 2px solid #40E0D0;
+    border-radius: 5px;
+    padding: 8px 20px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Bungee', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.account-button:hover {
+    background-color: #40E0D0;
+    color: black;
+}
+
+.account-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+.account-info {
+    color: white;
+}
+
+.logout-button {
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Bungee', sans-serif;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
 }
