@@ -79,8 +79,10 @@ function loginUser(username, password) {
     updateSavedCredentials(user.id, username, password);
     
     localStorage.setItem('currentSession', JSON.stringify(session));
+    updateNavigation();
     return session;
 }
+
 function updateSavedCredentials(userId, username, password) {
     const savedCredentials = JSON.parse(localStorage.getItem('savedCredentials') || '[]');
     const existingCredIndex = savedCredentials.findIndex(c => c.username === username);
@@ -104,9 +106,33 @@ function checkSession() {
 
 function logoutUser() {
     localStorage.removeItem('currentSession');
+    updateNavigation();
+    window.location.href = 'index.html';
 }
 
 function loadSavedCredentials() {
     const savedCredentials = JSON.parse(localStorage.getItem('savedCredentials') || '[]');
     return savedCredentials.length > 0 ? savedCredentials[savedCredentials.length - 1] : null;
-} 
+}
+
+function updateNavigation() {
+    const session = checkSession();
+    const authLinks = document.querySelector('.auth-links');
+    
+    if (session) {
+        // User is logged in
+        authLinks.innerHTML = `
+            <a href="account.html" class="account-button">
+                <span>${session.username}</span>
+            </a>
+        `;
+    } else {
+        // User is not logged in
+        authLinks.innerHTML = `
+            <a href="login.html">LOGIN</a>
+            <a href="register.html">REGISTER</a>
+        `;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', updateNavigation); 
