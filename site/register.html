@@ -79,8 +79,10 @@
             <a href="index.html">Home</a>
             <a href="plans.html">Plans</a>
             <a href="about.html">About</a>
-            <a href="login.html">Login</a>
-            <a class="active" href="register.html">Register</a>
+        </div>
+        <div class="auth-links">
+            <a href="login.html">LOGIN</a>
+            <a href="register.html">REGISTER</a>
         </div>
     </div>
     
@@ -119,10 +121,12 @@
                     document.getElementById('email').value,
                     document.getElementById('password').value
                 );
-                alert('Registration successful! Please login.');
-                window.location.href = 'login.html';
+                showMessage('Registration successful! Redirecting to login...');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
             } catch (error) {
-                alert(error.message);
+                showMessage(error.message);
             }
         });
     </script>
