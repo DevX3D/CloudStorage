@@ -137,101 +137,36 @@
         <div class="brand">FisHost</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a class="active" href="plans.html">Plans</a>
+            <a href="plans.html" class="active">Plans</a>
             <a href="about.html">About</a>
-            <a href="login.html" id="authLink">Login</a>
+        </div>
+        <div class="auth-links">
+            <a href="login.html">LOGIN</a>
+            <a href="register.html">REGISTER</a>
         </div>
     </div>
 
-    <div id="content">
+    <div class="plans-container">
+        <div class="plan-card">
+            <div class="plan-header">
+                <div class="plan-name">Free Plan</div>
+                <div class="plan-price">$0</div>
+            </div>
+            <ul class="plan-features">
+                <li>3GB High-Performance Storage</li>
+                <li>Unlimited File Transfers</li>
+                <li>Basic Support via Email</li>
+                <li>Secure File Encryption</li>
+                <li>Access from Any Device</li>
+                <li>File Version History (7 days)</li>
+                <li>Public File Sharing</li>
+                <li>API Access (100 requests/day)</li>
+            </ul>
+            <button class="plan-button" onclick="window.location.href='register.html'">Get Started</button>
+        </div>
     </div>
 
     <script src="js/auth.js"></script>
     <script src="js/plans.js"></script>
-    <script>
-        function formatBytes(bytes) {
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            if (bytes === 0) return '0 Bytes';
-            const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-        }
-
-        function checkSession() {
-            const session = JSON.parse(localStorage.getItem('currentSession'));
-            if (!session || new Date(session.expiresAt) < new Date()) {
-                return null;
-            }
-            return session;
-        }
-
-        function updateUI() {
-            const content = document.getElementById('content');
-            const session = checkSession();
-            const authLink = document.getElementById('authLink');
-
-            if (session) {
-                const { user, plan } = getUserPlanDetails(session.userId);
-                authLink.textContent = 'Logout';
-                authLink.href = '#';
-                authLink.onclick = () => {
-                    logoutUser();
-                    window.location.reload();
-                };
-
-                const usagePercentage = (user.storageUsed / user.storageLimit) * 100;
-                
-                content.innerHTML = `
-                    <div class="plans-container">
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <div class="plan-name">Free Plan</div>
-                                <div class="plan-price">$0</div>
-                            </div>
-                            <ul class="plan-features">
-                                <li>3GB High-Performance Storage</li>
-                                <li>Unlimited File Transfers</li>
-                                <li>Basic Support via Email</li>
-                                <li>Secure File Encryption</li>
-                                <li>Access from Any Device</li>
-                                <li>File Version History (7 days)</li>
-                                <li>Public File Sharing</li>
-                                <li>API Access (100 requests/day)</li>
-                            </ul>
-                            <div class="storage-info">
-                                Storage Used: ${formatBytes(user.storageUsed)} / ${formatBytes(user.storageLimit)}
-                                <div class="storage-bar">
-                                    <div class="storage-progress" style="width: ${usagePercentage}%"></div>
-                                </div>
-                            </div>
-                            <button class="plan-button" disabled>Current Plan</button>
-                        </div>
-                    </div>
-                `;
-            } else {
-                content.innerHTML = `
-                    <div class="login-prompt">
-                        <h2>Please login to view your plan</h2>
-                        <p>Don't have an account? <a href="register.html">Register now</a> to get 2.5GB free storage!</p>
-                    </div>
-                    <div class="plans-container">
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <div class="plan-name">Free Plan</div>
-                                <div class="plan-price">$0</div>
-                            </div>
-                            <ul class="plan-features">
-                                <li>2.5GB Storage</li>
-                                <li>Basic Support</li>
-                                <li>Standard Speed</li>
-                            </ul>
-                            <button class="plan-button" onclick="window.location.href='register.html'">Get Started</button>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        updateUI();
-    </script>
 </body>
 </html>
